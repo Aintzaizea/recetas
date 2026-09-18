@@ -1,12 +1,25 @@
 
 export async function buscarRecetas(query) {
+    let url;
+
+    if (query) {
+        url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}&query=${query}`;
+    } else {
+         url = `https://api.spoonacular.com/recipes/random?apiKey=${process.env.SPOONACULAR_API_KEY}&number=4`;
+     }
+   
     try {
-        const respuesta = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}&query=${query}`);
+        const respuesta = await fetch(url);
         if (!respuesta.ok) {
             throw new Error('Error al obtener las recetas');
         }
         const datos = await respuesta.json();
-        return datos.results;
+        if (query) {
+            return datos.results;
+        } else {
+            return datos.recipes;
+        }
+                
     } catch (error) {
         console.error('No se pudieron obtener las recetas', error);
         throw error;

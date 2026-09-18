@@ -1,8 +1,8 @@
 import { getRecetas } from "../models/recetasModel.js";
 export const listarRecetas = async (req, res) => {
-    const query = req.query.query;
+    const { buscar } = req.query;
     try {
-        const recetas = await getRecetas(query);
+        const recetas = await getRecetas(buscar);
         res.json(recetas);
     } catch (error) {
         console.error('Error al obtener recetas', error);

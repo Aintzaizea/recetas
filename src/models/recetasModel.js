@@ -1,6 +1,6 @@
 import {buscarRecetas} from '../services/spoonacularService.js';
-export function getRecetas(query) {
-    return buscarRecetas(query);
+export function getRecetas(buscar) {
+    return buscarRecetas(buscar);
 };
 
 /**
